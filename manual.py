@@ -56,9 +56,6 @@ max_step = biggest(s_m1, s_m2, s_m3)
 span_m1 = 0.5 * DELAY_PER_STEP * max_step / s_m1
 span_m2 = 0.5 * DELAY_PER_STEP * max_step / s_m2
 span_m3 = 0.5 * DELAY_PER_STEP * max_step / s_m3
-print(span_m1)
-print(span_m2)
-print(span_m3)
 
 # setting up GPIO pins
 GPIO.setmode(GPIO.BCM)
