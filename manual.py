@@ -1,4 +1,4 @@
-import sys
+import sys, threading
 from time import sleep
 import RPi.GPIO as GPIO
 
@@ -34,7 +34,10 @@ def rotate(direction, steps, PIN_DIR, PIN_STEP):
         GPIO.output(PIN_STEP, GPIO.LOW)
         sleep(DELAY_PER_STEP / 2)
 
-rotate(direction, steps, PIN_DIR_MOT1, PIN_STEP_MOT1)
+# rotate(direction, steps, PIN_DIR_MOT1, PIN_STEP_MOT1)
+t1 = threading.Thread(target=rotate, args=(direction, steps, PIN_DIR_MOT1, PIN_STEP_MOT1))
+t1.start()
+t1.join()
 
 GPIO.cleanup()
 
