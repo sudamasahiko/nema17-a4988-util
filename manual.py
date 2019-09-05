@@ -29,7 +29,7 @@ CW = 1
 CCW = 0
 
 # parameter check
-def arg_to_steps(arg)
+def arg_to_steps(arg):
     raw_angle = float(arg)
     if raw_angle == None:
         raw_angle = 0.0
