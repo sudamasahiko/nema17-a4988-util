@@ -53,9 +53,12 @@ def biggest(a, y, z):
     return Max
 
 max_step = biggest(s_m1, s_m2, s_m3)
-d_m1 = 0.5 * DELAY_PER_STEP * max_step / s_m1
-d_m2 = 0.5 * DELAY_PER_STEP * max_step / s_m2
-d_m3 = 0.5 * DELAY_PER_STEP * max_step / s_m3
+span_m1 = 0.5 * DELAY_PER_STEP * max_step / s_m1
+span_m2 = 0.5 * DELAY_PER_STEP * max_step / s_m2
+span_m3 = 0.5 * DELAY_PER_STEP * max_step / s_m3
+print(span_m1)
+print(span_m2)
+print(span_m3)
 
 # setting up GPIO pins
 GPIO.setmode(GPIO.BCM)
@@ -75,24 +78,24 @@ GPIO.output(PIN_DIR_MOT3, GPIO.LOW)
 GPIO.output(PIN_STEP_MOT3, GPIO.LOW)
 
 # rotate function
-def rotate(steps, direction, pin_dir, pin_step, delay):
+def rotate(steps, direction, pin_dir, pin_step, span_delay):
     GPIO.output(pin_dir, direction)
     for x in range(steps):
         GPIO.output(pin_step, GPIO.HIGH)
-        sleep(delay)
+        sleep(span_delay)
         GPIO.output(pin_step, GPIO.LOW)
-        sleep(delay)
+        sleep(span_delay)
 
 # execute rotation using threading
 pin_direc = PIN_DIR_MOT1
 pin_step = PIN_STEP_MOT1
-t1 = threading.Thread(target=rotate, args=(s_m1, d_m1, pin_direc, pin_step, d_m1))
+t1 = threading.Thread(target=rotate, args=(s_m1, d_m1, pin_direc, pin_step, span_m1))
 pin_direc = PIN_DIR_MOT2
 pin_step = PIN_STEP_MOT2
-t2 = threading.Thread(target=rotate, args=(s_m2, d_m2, pin_direc, pin_step, d_m2))
+t2 = threading.Thread(target=rotate, args=(s_m2, d_m2, pin_direc, pin_step, span_m2))
 pin_direc = PIN_DIR_MOT3
 pin_step = PIN_STEP_MOT3
-t3 = threading.Thread(target=rotate, args=(s_m3, d_m3, pin_direc, pin_step, d_m3))
+t3 = threading.Thread(target=rotate, args=(s_m3, d_m3, pin_direc, pin_step, span_m3))
 
 # start execution
 t1.start()
